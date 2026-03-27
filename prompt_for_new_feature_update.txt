@@ -58,3 +58,11 @@ Add SIP + EMI + FD calculators fully working
 Setup Docker + CI/CD pipeline
 
 Just tell me 👍
+
+
+
+
+Website full form
+
+Earn, Understand, and Develop Capital Through Education
+Enhancing Decisions Using Capital, Analytics, Training & Education
