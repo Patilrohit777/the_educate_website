@@ -1,0 +1,19 @@
+<h1>Time Duration - Lumpsum</h1>
+
+<input id="p" placeholder="Investment"><br>
+<input id="goal" placeholder="Target"><br>
+<input id="rate" placeholder="Return %"><br>
+
+<button onclick="calc()">Calculate</button>
+<h2 id="res"></h2>
+
+<script>
+function calc(){
+let P=p.value;
+let FV=goal.value;
+let r=rate.value/100;
+
+let t = Math.log(FV/P) / Math.log(1+r);
+res.innerText="Years: "+t.toFixed(1);
+}
+</script>

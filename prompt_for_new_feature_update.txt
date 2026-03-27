@@ -1,0 +1,60 @@
+🧠 🔥 MASTER PROMPT (Save This)
+Act as a senior full-stack developer and UI/UX designer.
+
+I am building a financial calculators website (like Finology style UI).
+My stack is simple HTML, CSS, JavaScript (or mention React if needed).
+I deploy on AWS EC2 / S3.
+
+I want you to:
+1. Give clean, modern, professional UI code
+2. Keep it simple, minimal, and production-ready
+3. Follow a consistent design (like Finology / clean SaaS style)
+4. Provide complete working code (not partial)
+5. Use proper structure and comments
+6. Make it responsive (mobile-friendly)
+7. Suggest improvements if needed
+
+Now my requirement is:
+👉 <WRITE YOUR FEATURE HERE>
+
+Also include:
+- Step-by-step integration guide
+- Where to place the code (file names)
+- How to deploy/update on EC2
+
+Keep response simple, practical, and beginner-friendly.
+✍️ Example Prompts You Can Use
+✅ Add New Calculator
+👉 Create a SIP calculator page with UI and working JavaScript logic
+✅ Improve UI
+👉 Improve homepage UI with animations and modern styling
+✅ Add Navigation Feature
+👉 Add navbar routing to different calculator pages
+✅ Add Backend Later
+👉 Convert this project into Node.js backend with API support
+✅ Deploy Upgrade
+👉 Add Docker support and CI/CD using GitHub Actions
+🎯 Pro Tips (Very Important)
+
+To get best results, always include:
+
+Your current code (if modifying)
+What you want (clear feature)
+Where you’re deploying (EC2 / S3 / Docker)
+🚀 Bonus: Power Prompt (Even Better)
+Improve my existing code without breaking current functionality.
+Make it production-ready and optimized.
+Explain changes briefly.
+💡 Final Advice
+
+Think like this:
+
+👉 “Don’t ask small questions — ask for complete feature”
+
+If you want, I can next:
+
+Build full financial calculator project (like Finology clone)
+Add SIP + EMI + FD calculators fully working
+Setup Docker + CI/CD pipeline
+
+Just tell me 👍

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💰EDUCATE - Categories</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #f6f8fb;
+}
+
+/* ================= HEADER ================= */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 50px;
+    background: #ffffff;
+    border-bottom: 1px solid #eee;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: #3b82f6;
+}
+
+.login-btn {
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* ================= HERO ================= */
+.hero {
+    text-align: center;
+    padding: 70px 20px 30px;
+}
+
+.hero h1 {
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    color: #666;
+    font-size: 16px;
+}
+
+/* ================= GRID ================= */
+.container {
+    padding: 30px 60px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+}
+
+/* ================= CARD ================= */
+.card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 16px;
+    text-decoration: none;
+    color: #333;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    transition: 0.3s;
+    position: relative;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+
+.card h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 14px;
+    color: #666;
+}
+
+.card:hover p {
+    color: #555;
+}
+
+.badge {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: #e8f0ff;
+    color: #3b82f6;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.icon {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    font-size: 36px;
+    opacity: 0.1;
+}
+
+/* ================= FOOTER ================= */
+.footer {
+    text-align: center;
+    padding: 25px;
+    color: #888;
+    font-size: 13px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="navbar">
+    <div class="logo">💰EDUCATE</div>
+
+    <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="#">Calculators</a>
+        <a href="#">Learn</a>
+        <a href="#">Books</a>
+        <a href="#">Planner</a>
+        <a href="#">About</a>
+    </nav>
+
+    <button class="login-btn">Login</button>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+    <h1>Smart Financial Tools</h1>
+    <p>Select a category to start planning your future 🚀</p>
+</section>
+
+<!-- ================= CATEGORY GRID ================= -->
+<div class="container">
+    <div class="grid">
+
+        <!-- Financial Calculators -->
+        <a href="financial.html" class="card">
+            <span class="badge">Popular</span>
+            <h2>Financial Calculators</h2>
+            <p>SIP, EMI, FD, CAGR, Lumpsum & more</p>
+            <div class="icon">📊</div>
+        </a>
+
+        <!-- Tax -->
+        <a href="#" class="card">
+            <span class="badge">Coming Soon</span>
+            <h2>Tax Calculators</h2>
+            <p>Income tax, GST & deductions tools</p>
+            <div class="icon">🧾</div>
+        </a>
+
+        <!-- Insurance -->
+        <a href="#" class="card">
+            <span class="badge">Coming Soon</span>
+            <h2>Insurance Tools</h2>
+            <p>Life & health planning calculators</p>
+            <div class="icon">🛡️</div>
+        </a>
+
+        <!-- Investment -->
+        <a href="#" class="card">
+            <span class="badge">Coming Soon</span>
+            <h2>Investment Tools</h2>
+            <p>Portfolio & advanced planning tools</p>
+            <div class="icon">📈</div>
+        </a>
+
+    </div>
+</div>
+
+<!-- ================= FOOTER ================= -->
+<div class="footer">
+    © 2026 💰EDUCATE — Learn Finance Smartly
+</div>
+
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FinCalc</title>
+
+<style>
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f6f8fb;
+  margin: 0;
+}
+
+/* Navbar */
+.navbar {
+  padding: 15px 40px;
+  background: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+/* Container */
+.container {
+  padding: 40px;
+}
+
+/* Tree Style */
+.tree {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.tree ul {
+  list-style: none;
+  padding-left: 20px;
+}
+
+.tree li {
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+/* Parent */
+.parent {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* Child links */
+.child a {
+  text-decoration: none;
+  color: #333;
+}
+
+.child a:hover {
+  color: #2563eb;
+}
+
+/* Toggle icon */
+.toggle::before {
+  content: "▶ ";
+  cursor: pointer;
+}
+
+.open::before {
+  content: "▼ ";
+}
+</style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+  <div class="logo">💰 FinCalc</div>
+</div>
+
+<!-- Content -->
+<div class="container">
+
+  <h2>Homepage</h2>
+
+  <div class="tree">
+    <ul>
+      <li class="parent toggle" onclick="toggleMenu(this)">
+        Financial Calculators
+        <ul style="display:none;">
+          
+          <li class="child"><a href="sip.html">SIP Calculator</a></li>
+          <li class="child"><a href="emi.html">EMI Calculator</a></li>
+          <li class="child"><a href="fd.html">FD Calculator</a></li>
+          <li class="child"><a href="lumpsum.html">Lumpsum Calculator</a></li>
+          <li class="child"><a href="cagr.html">CAGR Calculator</a></li>
+          <li class="child"><a href="step_sip.html">Step SIP Calculator</a></li>
+
+          <li class="child"><a href="goal_lumpsum.html">Goal Lumpsum</a></li>
+          <li class="child"><a href="goal_sip.html">Goal SIP</a></li>
+          <li class="child"><a href="time_lumpsum.html">Time Lumpsum</a></li>
+          <li class="child"><a href="time_sip.html">Time SIP</a></li>
+
+          <li class="child"><a href="planner.html">Investment Planner</a></li>
+
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+</div>
+
+<script>
+function toggleMenu(element) {
+  let subMenu = element.querySelector("ul");
+  if (subMenu.style.display === "none") {
+    subMenu.style.display = "block";
+    element.classList.add("open");
+  } else {
+    subMenu.style.display = "none";
+    element.classList.remove("open");
+  }
+}
+</script>
+
+</body>
+</html>

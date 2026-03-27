@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumpsum Calculator</title>
+
+<style>
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  background: #f7f8fa;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 60px;
+}
+
+/* Left Form */
+.form-section {
+  width: 50%;
+}
+
+h1 {
+  font-size: 40px;
+}
+
+p {
+  color: #555;
+}
+
+input {
+  width: 90%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+button {
+  margin-top: 20px;
+  padding: 12px 25px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.result {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+/* Right Image */
+.image-section {
+  width: 40%;
+}
+
+.image-section img {
+  width: 100%;
+}
+
+/* Responsive */
+@media(max-width: 900px) {
+  .container {
+    flex-direction: column;
+  }
+  .form-section, .image-section {
+    width: 100%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="form-section">
+    <h1>Lumpsum Calculator</h1>
+    <p>Calculate future value of your investment</p>
+
+    <input type="number" id="amount" placeholder="Investment Amount">
+    <input type="number" id="rate" placeholder="Expected Return (%)">
+    <input type="number" id="years" placeholder="Years">
+
+    <button onclick="calculateLumpsum()">Plan My Future Value</button>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <div class="image-section">
+    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
+  </div>
+
+</div>
+
+<script>
+function calculateLumpsum() {
+  let P = document.getElementById("amount").value;
+  let r = document.getElementById("rate").value / 100;
+  let t = document.getElementById("years").value;
+
+  let FV = P * Math.pow((1 + r), t);
+
+  document.getElementById("result").innerText =
+    "Future Value: ₹" + Math.round(FV);
+}
+</script>
+
+</body>
+</html>

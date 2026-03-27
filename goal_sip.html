@@ -1,0 +1,19 @@
+<h1>Goal Planning - SIP</h1>
+
+<input id="goal" placeholder="Target Amount"><br>
+<input id="rate" placeholder="Return %"><br>
+<input id="years" placeholder="Years"><br>
+
+<button onclick="calc()">Calculate</button>
+<h2 id="res"></h2>
+
+<script>
+function calc(){
+let FV=goal.value;
+let r=rate.value/100/12;
+let n=years.value*12;
+
+let SIP = FV / (((Math.pow(1+r,n)-1)/r)*(1+r));
+res.innerText="Monthly SIP ₹"+Math.round(SIP);
+}
+</script>

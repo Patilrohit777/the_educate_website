@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FD Calculator</title>
+  <style>
+    body { font-family: Arial; text-align: center; }
+    input, button { padding: 10px; margin: 10px; }
+  </style>
+</head>
+<body>
+
+<h1>FD Calculator</h1>
+
+<input type="number" id="principal" placeholder="Investment Amount"><br>
+<input type="number" id="rate" placeholder="Interest Rate (%)"><br>
+<input type="number" id="years" placeholder="Years"><br>
+
+<button onclick="calculateFD()">Calculate</button>
+
+<h2 id="result"></h2>
+
+<script>
+function calculateFD() {
+  let P = document.getElementById("principal").value;
+  let r = document.getElementById("rate").value / 100;
+  let t = document.getElementById("years").value;
+
+  let maturity = P * Math.pow((1 + r), t);
+
+  document.getElementById("result").innerText =
+    "Maturity Amount: ₹" + Math.round(maturity);
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FinCalc</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f6f8fb;
+}
+
+/* Navbar */
+.navbar {
+  padding: 18px 60px;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  font-size: 22px;
+  font-weight: bold;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 80px 20px 40px;
+}
+
+.hero h1 {
+  font-size: 48px;
+}
+
+.hero p {
+  color: #666;
+  font-size: 18px;
+}
+
+/* Category Buttons */
+.categories {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 40px;
+  flex-wrap: wrap;
+}
+
+.category-card {
+  width: 280px;
+  padding: 30px;
+  background: white;
+  border-radius: 15px;
+  text-align: center;
+  text-decoration: none;
+  color: black;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.06);
+  transition: 0.3s;
+}
+
+.category-card:hover {
+  transform: translateY(-8px);
+  background: #2563eb;
+  color: white;
+}
+
+.category-card h2 {
+  margin-bottom: 10px;
+}
+
+.category-card p {
+  color: #666;
+}
+
+.category-card:hover p {
+  color: #eee;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 20px;
+  background: white;
+  margin-top: 50px;
+  color: #777;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+  💰 FinCalc
+</div>
+
+<!-- Hero -->
+<div class="hero">
+  <h1>Smart Financial Tools</h1>
+  <p>Select a category to start planning your future</p>
+</div>
+
+<!-- Categories -->
+<div class="categories">
+
+  <!-- Financial Calculators -->
+  <a href="financial.html" class="category-card">
+    <h2>Financial Calculators</h2>
+    <p>SIP, EMI, FD, CAGR, Lumpsum & more</p>
+  </a>
+
+  <!-- Future Features -->
+  <a href="#" class="category-card">
+    <h2>Tax Calculators</h2>
+    <p>Income tax, GST & deductions (Coming Soon)</p>
+  </a>
+
+  <a href="#" class="category-card">
+    <h2>Insurance Tools</h2>
+    <p>Life & health planning tools (Coming Soon)</p>
+  </a>
+
+  <a href="#" class="category-card">
+    <h2>Investment Tools</h2>
+    <p>Portfolio & planning tools (Coming Soon)</p>
+  </a>
+
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  © 2026 FinCalc 🚀
+</div>
+
+</body>
+</html>

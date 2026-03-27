@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EDUCATE</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f6f8fb;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 18px 60px;
+  background: white;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.nav-links a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: #333;
+}
+
+.login-btn {
+  background: black;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 80px 20px 40px;
+}
+
+.hero h1 {
+  font-size: 52px;
+}
+
+.hero p {
+  color: #666;
+  font-size: 18px;
+}
+
+.btn-primary {
+  background: #2563eb;
+  color: white;
+  padding: 14px 30px;
+  border-radius: 10px;
+  text-decoration: none;
+}
+
+/* Section */
+.section {
+  padding: 50px 60px;
+}
+
+.section h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Cards */
+.cards {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  width: 260px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.06);
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+}
+
+.card h3 {
+  margin-bottom: 10px;
+}
+
+.card p {
+  color: #666;
+}
+
+.card a {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 15px;
+  background: #2563eb;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 20px;
+  background: white;
+  margin-top: 50px;
+  color: #777;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+  <div class="logo">💰 EDUCATE</div>
+  <div class="nav-links">
+    <a href="#">Home</a>
+    <a href="#basic">Basic</a>
+    <a href="#advanced">Advanced</a>
+    <a href="#planner">Planner</a>
+    <a href="#" class="login-btn">Login</a>
+  </div>
+</div>
+
+<!-- Hero -->
+<div class="hero">
+  <h1>Smart Financial Planning Made Simple</h1>
+  <p>Calculate, plan, and grow your wealth with powerful tools</p>
+  <br>
+  <a href="#basic" class="btn-primary">Start Calculating</a>
+</div>
+
+<!-- Basic Calculators -->
+<div class="section" id="basic">
+  <h2>Basic Calculators</h2>
+
+  <div class="cards">
+    <div class="card">
+      <h3>SIP Calculator</h3>
+      <p>Plan monthly investments</p>
+      <a href="sip.html">Open</a>
+    </div>
+
+    <div class="card">
+      <h3>EMI Calculator</h3>
+      <p>Calculate loan EMI</p>
+      <a href="emi.html">Open</a>
+    </div>
+
+    <div class="card">
+      <h3>FD Calculator</h3>
+      <p>Check FD returns</p>
+      <a href="fd.html">Open</a>
+    </div>
+
+    <div class="card">
+      <h3>Lumpsum</h3>
+      <p>One-time investment growth</p>
+      <a href="lumpsum.html">Open</a>
+    </div>
+
+    <div class="card">
+      <h3>CAGR</h3>
+      <p>Growth rate of investment</p>
+      <a href="cagr.html">Open</a>
+    </div>
+
+    <div class="card">
+      <h3>Step SIP</h3>
+      <p>Increase SIP yearly</p>
+      <a href="step_sip.html">Open</a>
+    </div>
+  </div>
+</div>
+
+<!-- Advanced Calculators -->
+<div class="section" id="advanced">
+  <h2>Goal & Time Planning</h2>
+
+  <div class="cards">
+
+    <div class="card">
+      <h3>Goal Lumpsum</h3>
+      <p>Plan one-time investment for goal</p>
+      <a href="goal_lumpsum.html">Open</a>
+    </div>
+
+    <div class="card">
+      <h3>Goal SIP</h3>
+      <p>Monthly SIP for your goal</p>
+      <a href="goal_sip.html">Open</a>
+    </div>
+
+    <div class="card">
+      <h3>Time Lumpsum</h3>
+      <p>Time to reach your goal</p>
+      <a href="time_lumpsum.html">Open</a>
+    </div>
+
+    <div class="card">
+      <h3>Time SIP</h3>
+      <p>Time needed with SIP</p>
+      <a href="time_sip.html">Open</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- Planner -->
+<div class="section" id="planner">
+  <h2>Smart Planning</h2>
+
+  <div class="cards">
+    <div class="card">
+      <h3>Investment Planner</h3>
+      <p>Get personalized investment plan</p>
+      <a href="planner.html">Open</a>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  © 2026 EDUCATE | Built for Investors 🚀
+</div>
+
+</body>
+</html>

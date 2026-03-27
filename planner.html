@@ -1,0 +1,20 @@
+<h1>Investment Planner</h1>
+
+<input id="income" placeholder="Monthly Income"><br>
+<input id="risk" placeholder="Risk (low/medium/high)"><br>
+
+<button onclick="plan()">Get Plan</button>
+<h2 id="res"></h2>
+
+<script>
+function plan(){
+let income = income.value;
+let risk = document.getElementById("risk").value;
+
+let invest = income * 0.2;
+
+if(risk=="low") res.innerText="FD + Bonds ₹"+invest;
+else if(risk=="medium") res.innerText="MF + FD ₹"+invest;
+else res.innerText="Equity + SIP ₹"+invest;
+}
+</script>

@@ -1,0 +1,19 @@
+<h1>Time Duration - SIP</h1>
+
+<input id="sip" placeholder="Monthly SIP"><br>
+<input id="goal" placeholder="Target"><br>
+<input id="rate" placeholder="Return %"><br>
+
+<button onclick="calc()">Calculate</button>
+<h2 id="res"></h2>
+
+<script>
+function calc(){
+let P=sip.value;
+let FV=goal.value;
+let r=rate.value/100/12;
+
+let n = Math.log((FV*r/P)+1)/Math.log(1+r);
+res.innerText="Years: "+(n/12).toFixed(1);
+}
+</script>

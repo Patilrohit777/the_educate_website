@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Step SIP Calculator</title>
+<style>
+body { font-family: Arial; text-align:center; background:#f7f8fa;}
+.container { padding:50px; }
+input { padding:10px; margin:10px; width:250px; }
+button { padding:10px 20px; background:#2563eb; color:white; border:none; }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h1>Step SIP Calculator</h1>
+
+<input type="number" id="amount" placeholder="Monthly Investment"><br>
+<input type="number" id="step" placeholder="Yearly Increase (%)"><br>
+<input type="number" id="rate" placeholder="Return (%)"><br>
+<input type="number" id="years" placeholder="Years"><br>
+
+<button onclick="calculateStepSIP()">Calculate</button>
+
+<h2 id="result"></h2>
+</div>
+
+<script>
+function calculateStepSIP() {
+  let P = Number(document.getElementById("amount").value);
+  let step = Number(document.getElementById("step").value) / 100;
+  let r = Number(document.getElementById("rate").value) / 100 / 12;
+  let years = Number(document.getElementById("years").value);
+
+  let total = 0;
+
+  for(let y=0; y<years; y++) {
+    let yearlyInvestment = P * Math.pow(1+step, y);
+
+    for(let m=0; m<12; m++) {
+      total = (total + yearlyInvestment) * (1 + r);
+    }
+  }
+
+  document.getElementById("result").innerText =
+    "Future Value: ₹" + Math.round(total);
+}
+</script>
+
+</body>
+</html>

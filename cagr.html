@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>CAGR Calculator</title>
+<style>
+body { font-family: Arial; text-align:center; background:#f7f8fa;}
+.container { padding:50px; }
+input { padding:10px; margin:10px; width:250px; }
+button { padding:10px 20px; background:#2563eb; color:white; border:none; }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h1>CAGR Calculator</h1>
+
+<input type="number" id="start" placeholder="Initial Value"><br>
+<input type="number" id="end" placeholder="Final Value"><br>
+<input type="number" id="years" placeholder="Years"><br>
+
+<button onclick="calculateCAGR()">Calculate</button>
+
+<h2 id="result"></h2>
+</div>
+
+<script>
+function calculateCAGR() {
+  let start = document.getElementById("start").value;
+  let end = document.getElementById("end").value;
+  let t = document.getElementById("years").value;
+
+  let cagr = (Math.pow(end/start, 1/t) - 1) * 100;
+
+  document.getElementById("result").innerText =
+    "CAGR: " + cagr.toFixed(2) + "%";
+}
+</script>
+
+</body>
+</html>
