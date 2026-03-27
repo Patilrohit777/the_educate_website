@@ -39,7 +39,7 @@ jobs:
 
             echo "===== CLEAN SYNC CODE ====="
             git fetch --all
-            git reset --hard origin/main
+            git reset --hard origin/${{ github.ref_name }}
 
             echo "===== FIX PERMISSIONS ====="
             sudo chown -R ec2-user:ec2-user .
