@@ -1,52 +1,243 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Tax Calculators</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>New Tax Regime Calculator</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
 
-<style>
-body {
-  font-family: 'Segoe UI', sans-serif;
-  background: #f6f8fb;
-  text-align: center;
-  padding: 80px;
-}
+    body {
+      margin: 0;
+      background: #f5f7fb;
+      padding: 20px;
+    }
 
-h1 {
-  font-size: 40px;
-}
+    .tax-container {
+      max-width: 520px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
 
-.box {
-  margin-top: 40px;
-  padding: 40px;
-  background: white;
-  border-radius: 15px;
-  display: inline-block;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.06);
-}
+    h2 {
+      margin-top: 0;
+      text-align: center;
+      color: #222;
+    }
 
-.btn {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 10px 20px;
-  background: #2563eb;
-  color: white;
-  border-radius: 8px;
-  text-decoration: none;
-}
-</style>
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #d7dce5;
+      font-size: 15px;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #4f7cff;
+    }
+
+    button {
+      background: #4f7cff;
+      color: white;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+
+    button:hover {
+      background: #3c68ea;
+    }
+
+    .results {
+      margin-top: 22px;
+      background: #f8faff;
+      border: 1px solid #e5ecff;
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 10px 0;
+      border-bottom: 1px solid #edf1f7;
+      color: #333;
+    }
+
+    .row:last-child {
+      border-bottom: none;
+      font-weight: 700;
+      color: #111;
+    }
+
+    .note {
+      margin-top: 14px;
+      font-size: 13px;
+      color: #666;
+      line-height: 1.5;
+    }
+
+    .small {
+      font-size: 12px;
+      color: #777;
+      margin-top: 6px;
+    }
+  </style>
 </head>
-
 <body>
+  <div class="tax-container">
+    <h2>New Tax Regime Calculator</h2>
 
-<h1>Tax Calculators</h1>
+    <div class="form-group">
+      <label for="income">Annual Income (₹)</label>
+      <input type="number" id="income" placeholder="Enter annual income" min="0" step="1" />
+    </div>
 
-<div class="box">
-  <h2>🚧 Coming Soon</h2>
-  <p>Income Tax, GST & more tools are under development</p>
+    <div class="form-group">
+      <label for="taxpayerType">Taxpayer Type</label>
+      <select id="taxpayerType">
+        <option value="salaried">Salaried</option>
+        <option value="non-salaried">Non-Salaried</option>
+      </select>
+      <div class="small">Salaried taxpayers get standard deduction of ₹75,000.</div>
+    </div>
 
-  <a href="index.html" class="btn">⬅ Back to Home</a>
-</div>
+    <button onclick="calculateTax()">Calculate Tax</button>
 
+    <div class="results">
+      <div class="row">
+        <span>Gross Income</span>
+        <span id="grossIncome">₹0</span>
+      </div>
+      <div class="row">
+        <span>Standard Deduction</span>
+        <span id="standardDeduction">₹0</span>
+      </div>
+      <div class="row">
+        <span>Taxable Income</span>
+        <span id="taxableIncome">₹0</span>
+      </div>
+      <div class="row">
+        <span>Tax Before Rebate</span>
+        <span id="taxBeforeRebate">₹0</span>
+      </div>
+      <div class="row">
+        <span>Rebate</span>
+        <span id="rebate">₹0</span>
+      </div>
+      <div class="row">
+        <span>Cess (4%)</span>
+        <span id="cess">₹0</span>
+      </div>
+      <div class="row">
+        <span>Final Tax Payable</span>
+        <span id="finalTax">₹0</span>
+      </div>
+    </div>
+
+    <div class="note">
+      This calculator is based on India’s new tax regime slab rates announced for FY 2025–26.
+      It does not include special-rate income such as capital gains, lottery income, or surcharge.
+    </div>
+  </div>
+
+  <script>
+    function formatINR(value) {
+      return "₹" + Math.round(value).toLocaleString("en-IN");
+    }
+
+    function calculateSlabTax(income) {
+      let tax = 0;
+
+      if (income <= 400000) return 0;
+
+      if (income > 400000) {
+        tax += Math.min(income, 800000) - 400000 > 0
+          ? (Math.min(income, 800000) - 400000) * 0.05
+          : 0;
+      }
+
+      if (income > 800000) {
+        tax += Math.min(income, 1200000) - 800000 > 0
+          ? (Math.min(income, 1200000) - 800000) * 0.10
+          : 0;
+      }
+
+      if (income > 1200000) {
+        tax += Math.min(income, 1600000) - 1200000 > 0
+          ? (Math.min(income, 1600000) - 1200000) * 0.15
+          : 0;
+      }
+
+      if (income > 1600000) {
+        tax += Math.min(income, 2000000) - 1600000 > 0
+          ? (Math.min(income, 2000000) - 1600000) * 0.20
+          : 0;
+      }
+
+      if (income > 2000000) {
+        tax += Math.min(income, 2400000) - 2000000 > 0
+          ? (Math.min(income, 2400000) - 2000000) * 0.25
+          : 0;
+      }
+
+      if (income > 2400000) {
+        tax += (income - 2400000) * 0.30;
+      }
+
+      return tax;
+    }
+
+    function calculateTax() {
+      const grossIncome = parseFloat(document.getElementById("income").value) || 0;
+      const taxpayerType = document.getElementById("taxpayerType").value;
+
+      const standardDeduction = taxpayerType === "salaried" ? 75000 : 0;
+      const taxableIncome = Math.max(0, grossIncome - standardDeduction);
+
+      let taxBeforeRebate = calculateSlabTax(taxableIncome);
+
+      // Rebate logic for new regime:
+      // Non-salaried: zero tax up to taxable income ₹12,00,000
+      // Salaried: because of ₹75,000 standard deduction, gross income up to ₹12,75,000 becomes nil tax
+      let rebate = 0;
+      if (taxableIncome <= 1200000) {
+        rebate = taxBeforeRebate;
+      }
+
+      const taxAfterRebate = Math.max(0, taxBeforeRebate - rebate);
+      const cess = taxAfterRebate * 0.04;
+      const finalTax = taxAfterRebate + cess;
+
+      document.getElementById("grossIncome").textContent = formatINR(grossIncome);
+      document.getElementById("standardDeduction").textContent = formatINR(standardDeduction);
+      document.getElementById("taxableIncome").textContent = formatINR(taxableIncome);
+      document.getElementById("taxBeforeRebate").textContent = formatINR(taxBeforeRebate);
+      document.getElementById("rebate").textContent = formatINR(rebate);
+      document.getElementById("cess").textContent = formatINR(cess);
+      document.getElementById("finalTax").textContent = formatINR(finalTax);
+    }
+  </script>
 </body>
 </html>

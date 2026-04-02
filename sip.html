@@ -1,35 +1,252 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SIP Calculator</title>
   <style>
-    body { font-family: Arial; text-align: center; }
-    input, button { padding: 10px; margin: 10px; }
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f3f3f3;
+      color: #2f3a4a;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 28px 10px 20px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 42px;
+      font-weight: 300;
+      color: #24364b;
+    }
+
+    .subtitle {
+      margin-bottom: 28px;
+      font-size: 16px;
+      color: #667080;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px 30px;
+      max-width: 540px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #4a5565;
+      text-align: left;
+    }
+
+    .input-box,
+    .select-box {
+      width: 100%;
+      height: 38px;
+      padding: 8px 12px;
+      border: 1px solid #c7c7c7;
+      border-radius: 3px;
+      font-size: 14px;
+      background: #fff;
+      color: #555;
+      outline: none;
+    }
+
+    .input-box:focus,
+    .select-box:focus {
+      border-color: #7d9fc2;
+      box-shadow: 0 0 0 2px rgba(79, 122, 170, 0.08);
+    }
+
+    .period-wrap {
+      display: flex;
+      width: 100%;
+    }
+
+    .period-wrap input {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      border-right: none;
+    }
+
+    .period-suffix {
+      min-width: 60px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #ececec;
+      border: 1px solid #c7c7c7;
+      border-radius: 0 3px 3px 0;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .button-row {
+      margin-top: 38px;
+      max-width: 540px;
+      text-align: left;
+    }
+
+    button {
+      width: 282px;
+      height: 38px;
+      border: 1px solid #345a82;
+      border-radius: 3px;
+      font-size: 16px;
+      color: #fff;
+      cursor: pointer;
+      background: linear-gradient(to bottom, #5d87b1, #2f5c8b);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.25);
+    }
+
+    button:hover {
+      background: linear-gradient(to bottom, #6993bd, #356493);
+    }
+
+    .result-box {
+      margin-top: 24px;
+      max-width: 540px;
+      padding: 14px 16px;
+      background: #ffffff;
+      border: 1px solid #d5d5d5;
+      border-radius: 4px;
+      text-align: left;
+      display: none;
+    }
+
+    .result-title {
+      margin: 0 0 8px;
+      font-size: 18px;
+      color: #24364b;
+      font-weight: 700;
+    }
+
+    .result-text {
+      font-size: 16px;
+      color: #4b5666;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 700px) {
+      h1 {
+        font-size: 34px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+        max-width: 100%;
+      }
+
+      .button-row,
+      .result-box {
+        max-width: 100%;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
+  <div class="container">
+    <h1>SIP Calculator</h1>
+    <div class="subtitle">Calculate returns on your Systematic Investment Plan.</div>
 
-<h1>SIP Calculator</h1>
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="amount">Monthly Investment Amount (Rs.)</label>
+        <input type="number" id="amount" class="input-box" placeholder="20000" />
+      </div>
 
-<input type="number" id="amount" placeholder="Monthly Investment"><br>
-<input type="number" id="rate" placeholder="Annual Interest (%)"><br>
-<input type="number" id="years" placeholder="Years"><br>
+      <div class="form-group">
+        <label for="years">Investment Period</label>
+        <div class="period-wrap">
+          <input type="number" id="years" class="input-box" placeholder="10" />
+          <div class="period-suffix">years</div>
+        </div>
+      </div>
 
-<button onclick="calculateSIP()">Calculate</button>
+      <div class="form-group">
+        <label for="rate">Expected Annual Returns (%)</label>
+        <input type="number" id="rate" class="input-box" placeholder="15" step="0.01" />
+      </div>
 
-<h2 id="result"></h2>
+      <div class="form-group">
+        <label for="inflation">Adjust for Inflation ?</label>
+        <select id="inflation" class="select-box">
+          <option value="no">No</option>
+          <option value="yes">Yes</option>
+        </select>
+      </div>
+    </div>
 
-<script>
-function calculateSIP() {
-  let P = document.getElementById("amount").value;
-  let r = document.getElementById("rate").value / 100 / 12;
-  let n = document.getElementById("years").value * 12;
+    <div class="button-row">
+      <button onclick="calculateSIP()">Calculate</button>
+    </div>
 
-  let futureValue = P * ((Math.pow(1+r,n)-1)/r)*(1+r);
-  document.getElementById("result").innerText =
-    "Future Value: ₹" + Math.round(futureValue);
-}
-</script>
+    <div class="result-box" id="resultBox">
+      <div class="result-title">Result</div>
+      <div class="result-text" id="result"></div>
+    </div>
+  </div>
 
+  <script>
+    function formatIndianCurrency(value) {
+      return Number(value).toLocaleString("en-IN", {
+        maximumFractionDigits: 0
+      });
+    }
+
+    function calculateSIP() {
+      const P = parseFloat(document.getElementById("amount").value) || 0;
+      const annualRate = parseFloat(document.getElementById("rate").value) || 0;
+      const years = parseFloat(document.getElementById("years").value) || 0;
+      const inflation = document.getElementById("inflation").value;
+
+      if (P <= 0 || annualRate <= 0 || years <= 0) {
+        document.getElementById("resultBox").style.display = "block";
+        document.getElementById("result").innerHTML =
+          "Please enter valid values for monthly investment, annual return, and investment period.";
+        return;
+      }
+
+      const r = annualRate / 100 / 12;
+      const n = years * 12;
+
+      const futureValue = P * (((Math.pow(1 + r, n) - 1) / r) * (1 + r));
+      const investedAmount = P * n;
+      const estimatedReturns = futureValue - investedAmount;
+
+      let resultHTML = `
+        Invested Amount: ₹${formatIndianCurrency(investedAmount)}<br>
+        Estimated Returns: ₹${formatIndianCurrency(estimatedReturns)}<br>
+        Future Value: ₹${formatIndianCurrency(futureValue)}
+      `;
+
+      if (inflation === "yes") {
+        const inflationRate = 0.06;
+        const inflationAdjustedValue = futureValue / Math.pow(1 + inflationRate, years);
+
+        resultHTML += `<br>Inflation Adjusted Value: ₹${formatIndianCurrency(inflationAdjustedValue)}`;
+      }
+
+      document.getElementById("resultBox").style.display = "block";
+      document.getElementById("result").innerHTML = resultHTML;
+    }
+  </script>
 </body>
 </html>
