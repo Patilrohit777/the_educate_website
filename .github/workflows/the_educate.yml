@@ -12,61 +12,49 @@ on:
 jobs:
   build-check:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
       - name: Show branch
         run: echo "Running on ${{ github.ref }}"
 
   deploy:
     runs-on: ubuntu-latest
     needs: build-check
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set EC2 target
-        run: |
-          if [[ "${GITHUB_REF}" == "refs/heads/main" ]]; then
-            echo "DEPLOY_HOST=${{ secrets.EC2_HOST }}" >> $GITHUB_ENV
-            echo "DEPLOY_KEY=${{ secrets.EC2_KEY }}" >> $GITHUB_ENV
-          else
-            echo "DEPLOY_HOST=${{ secrets.EC2_HOST_TEST }}" >> $GITHUB_ENV
-            echo "DEPLOY_KEY=${{ secrets.EC2_KEY_TEST }}" >> $GITHUB_ENV
-          fi
-
-      - name: Deploy to EC2
+      - name: Deploy to EC2 (main branch)
+        if: github.ref == 'refs/heads/main'
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ env.DEPLOY_HOST }}
+          host: ${{ secrets.EC2_HOST }}
           username: ec2-user
-          key: ${{ env.DEPLOY_KEY }}
+          key: ${{ secrets.EC2_KEY }}
           script: |
             cd /home/ec2-user/${{ github.event.repository.name }}
-            ls
-            echo "===== CLEAN SYNC CODE ====="
             git fetch --all
             git reset --hard origin/${{ github.ref_name }}
-
-            echo "===== FIX PERMISSIONS ====="
             sudo chown -R ec2-user:ec2-user .
-
-            echo "===== STOP OLD CONTAINER ====="
             docker rm -f ${{ github.event.repository.name }} || true
-
-            echo "===== BUILD IMAGE ====="
             docker build -t ${{ github.event.repository.name }} .
+            docker run -d -p 80:80 --name ${{ github.event.repository.name }} ${{ github.event.repository.name }}
+            docker ps -a
 
-            echo "===== RUN CONTAINER ====="
-            docker run -d -p 80:80 \
-              --name ${{ github.event.repository.name }} \
-              ${{ github.event.repository.name }}
-
-            echo "===== RUNNING CONTAINERS ====="
-            docker ps
-
-            echo "===== ALL CONTAINERS ====="
+      - name: Deploy to EC2 (non-main branches)
+        if: github.ref != 'refs/heads/main'
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST_TEST }}
+          username: ec2-user
+          key: ${{ secrets.EC2_KEY_TEST }}
+          script: |
+            cd /home/ec2-user/${{ github.event.repository.name }}
+            git fetch --all
+            git reset --hard origin/${{ github.ref_name }}
+            sudo chown -R ec2-user:ec2-user .
+            docker rm -f ${{ github.event.repository.name }} || true
+            docker build -t ${{ github.event.repository.name }} .
+            docker run -d -p 8080:80 --name ${{ github.event.repository.name }} ${{ github.event.repository.name }}
             docker ps -a
