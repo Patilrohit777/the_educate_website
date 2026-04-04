@@ -107,4 +107,3 @@ jobs:
 #            docker stop ${{ env.IMAGE_NAME }} || true
 #            docker rm ${{ env.IMAGE_NAME }} || true
 #            docker run -d -p 80:80 --name ${{ env.IMAGE_NAME }} ${{ vars.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest
-#
