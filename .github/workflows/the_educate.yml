@@ -30,7 +30,7 @@ jobs:
 
       - name: Set EC2 target
         run: |
-          if [[ "${GITHUB_REF}" == *main* ]]; then
+          if [[ "${GITHUB_REF}" == "refs/heads/main" ]]; then
             echo "DEPLOY_HOST=${{ secrets.EC2_HOST }}" >> $GITHUB_ENV
             echo "DEPLOY_KEY=${{ secrets.EC2_KEY }}" >> $GITHUB_ENV
           else
