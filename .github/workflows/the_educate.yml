@@ -36,21 +36,42 @@ jobs:
             echo "===== INSTANCE DETAILS ====="
             hostname -f
             uname -a
-            curl -s http://169.254.169.254/latest/meta-data/public-ipv4
-            curl -s http://169.254.169.254/latest/meta-data/instance-id
-            curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone
+            echo "Public IP: $(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)"
+            echo "Instance ID: $(curl -s http://169.254.169.254/latest/meta-data/instance-id)"
+            echo "Availability Zone: $(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone)"
 
             echo "===== CHECK DIRECTORY ====="
             ls -l /home/ec2-user
 
-            cd /home/ec2-user/${{ github.event.repository.name }} || echo "Repo directory not found"
-            git fetch --all || echo "Not a git repo yet"
-            git reset --hard origin/${{ github.ref_name }} || true
+            # Ensure repo exists
+            if [ ! -d "/home/ec2-user/${{ github.event.repository.name }}" ]; then
+              echo "Cloning repository..."
+              git clone https://github.com/${{ github.repository }} /home/ec2-user/${{ github.event.repository.name }}
+            fi
 
+            cd /home/ec2-user/${{ github.event.repository.name }}
+
+            echo "===== FIX PERMISSIONS ====="
             sudo chown -R ec2-user:ec2-user .
+
+            echo "===== SYNC CODE ====="
+            git fetch --all
+            git reset --hard origin/${{ github.ref_name }}
+
+            echo "===== STOP OLD CONTAINER ====="
             docker rm -f ${{ github.event.repository.name }} || true
-            docker build -t ${{ github.event.repository.name }} . || echo "No Dockerfile found"
+
+            echo "===== BUILD IMAGE ====="
+            if [ -f Dockerfile ]; then
+              docker build -t ${{ github.event.repository.name }} .
+            else
+              echo "No Dockerfile found, skipping build"
+            fi
+
+            echo "===== RUN CONTAINER ====="
             docker run -d -p 80:80 --name ${{ github.event.repository.name }} ${{ github.event.repository.name }} || echo "Run failed"
+
+            echo "===== RUNNING CONTAINERS ====="
             docker ps -a
 
       - name: Deploy to EC2 (non-main branches)
@@ -64,19 +85,40 @@ jobs:
             echo "===== INSTANCE DETAILS ====="
             hostname -f
             uname -a
-            curl -s http://169.254.169.254/latest/meta-data/public-ipv4
-            curl -s http://169.254.169.254/latest/meta-data/instance-id
-            curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone
+            echo "Public IP: $(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)"
+            echo "Instance ID: $(curl -s http://169.254.169.254/latest/meta-data/instance-id)"
+            echo "Availability Zone: $(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone)"
 
             echo "===== CHECK DIRECTORY ====="
             ls -l /home/ec2-user
 
-            cd /home/ec2-user/${{ github.event.repository.name }} || echo "Repo directory not found"
-            git fetch --all || echo "Not a git repo yet"
-            git reset --hard origin/${{ github.ref_name }} || true
+            # Ensure repo exists
+            if [ ! -d "/home/ec2-user/${{ github.event.repository.name }}" ]; then
+              echo "Cloning repository..."
+              git clone https://github.com/${{ github.repository }} /home/ec2-user/${{ github.event.repository.name }}
+            fi
 
+            cd /home/ec2-user/${{ github.event.repository.name }}
+
+            echo "===== FIX PERMISSIONS ====="
             sudo chown -R ec2-user:ec2-user .
+
+            echo "===== SYNC CODE ====="
+            git fetch --all
+            git reset --hard origin/${{ github.ref_name }}
+
+            echo "===== STOP OLD CONTAINER ====="
             docker rm -f ${{ github.event.repository.name }} || true
-            docker build -t ${{ github.event.repository.name }} . || echo "No Dockerfile found"
+
+            echo "===== BUILD IMAGE ====="
+            if [ -f Dockerfile ]; then
+              docker build -t ${{ github.event.repository.name }} .
+            else
+              echo "No Dockerfile found, skipping build"
+            fi
+
+            echo "===== RUN CONTAINER ====="
             docker run -d -p 8080:80 --name ${{ github.event.repository.name }} ${{ github.event.repository.name }} || echo "Run failed"
+
+            echo "===== RUNNING CONTAINERS ====="
             docker ps -a
