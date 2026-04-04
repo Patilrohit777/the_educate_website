@@ -45,9 +45,8 @@ jobs:
           username: ec2-user
           key: ${{ env.DEPLOY_KEY }}
           script: |
-            ls
             cd /home/ec2-user/${{ github.event.repository.name }}
-
+            ls
             echo "===== CLEAN SYNC CODE ====="
             git fetch --all
             git reset --hard origin/${{ github.ref_name }}
