@@ -33,16 +33,24 @@ jobs:
           username: ec2-user
           key: ${{ secrets.EC2_KEY }}
           script: |
-            cd /home/ec2-user/${{ github.event.repository.name }}
-            ls
-            cd ${{ github.event.repository.name }}
-            ls
-            git fetch --all
-            git reset --hard origin/${{ github.ref_name }}
+            echo "===== INSTANCE DETAILS ====="
+            hostname -f
+            uname -a
+            curl -s http://169.254.169.254/latest/meta-data/public-ipv4
+            curl -s http://169.254.169.254/latest/meta-data/instance-id
+            curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone
+
+            echo "===== CHECK DIRECTORY ====="
+            ls -l /home/ec2-user
+
+            cd /home/ec2-user/${{ github.event.repository.name }} || echo "Repo directory not found"
+            git fetch --all || echo "Not a git repo yet"
+            git reset --hard origin/${{ github.ref_name }} || true
+
             sudo chown -R ec2-user:ec2-user .
             docker rm -f ${{ github.event.repository.name }} || true
-            docker build -t ${{ github.event.repository.name }} .
-            docker run -d -p 80:80 --name ${{ github.event.repository.name }} ${{ github.event.repository.name }}
+            docker build -t ${{ github.event.repository.name }} . || echo "No Dockerfile found"
+            docker run -d -p 80:80 --name ${{ github.event.repository.name }} ${{ github.event.repository.name }} || echo "Run failed"
             docker ps -a
 
       - name: Deploy to EC2 (non-main branches)
@@ -53,12 +61,22 @@ jobs:
           username: ec2-user
           key: ${{ secrets.EC2_KEY_TEST }}
           script: |
-            cd /home/ec2-user/${{ github.event.repository.name }}
-            ls
-            git fetch --all
-            git reset --hard origin/${{ github.ref_name }}
+            echo "===== INSTANCE DETAILS ====="
+            hostname -f
+            uname -a
+            curl -s http://169.254.169.254/latest/meta-data/public-ipv4
+            curl -s http://169.254.169.254/latest/meta-data/instance-id
+            curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone
+
+            echo "===== CHECK DIRECTORY ====="
+            ls -l /home/ec2-user
+
+            cd /home/ec2-user/${{ github.event.repository.name }} || echo "Repo directory not found"
+            git fetch --all || echo "Not a git repo yet"
+            git reset --hard origin/${{ github.ref_name }} || true
+
             sudo chown -R ec2-user:ec2-user .
             docker rm -f ${{ github.event.repository.name }} || true
-            docker build -t ${{ github.event.repository.name }} .
-            docker run -d -p 8080:80 --name ${{ github.event.repository.name }} ${{ github.event.repository.name }}
+            docker build -t ${{ github.event.repository.name }} . || echo "No Dockerfile found"
+            docker run -d -p 8080:80 --name ${{ github.event.repository.name }} ${{ github.event.repository.name }} || echo "Run failed"
             docker ps -a
